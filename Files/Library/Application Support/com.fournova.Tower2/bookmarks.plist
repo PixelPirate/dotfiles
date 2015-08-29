@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>children</key>
+	<array>
+		<dict>
+			<key>children</key>
+			<array/>
+			<key>fileReferenceURL</key>
+			<string>file:///.file/id=6571367.1556771/</string>
+			<key>fileURL</key>
+			<string>file:///Users/pA/Dropbox/Studium/Programmieren/Semester%2011/Tutor,%20Skroch/Praktikum%201/Special%20Characters/</string>
+			<key>name</key>
+			<string>Special Characters</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array/>
+			<key>fileReferenceURL</key>
+			<string>file:///.file/id=6571367.5438336/</string>
+			<key>fileURL</key>
+			<string>file:///Users/pA/Documents/Entwicklung/Unity/Marcopolo%20Weather/</string>
+			<key>name</key>
+			<string>Marcopolo Weather</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array/>
+			<key>fileReferenceURL</key>
+			<string>file:///.file/id=6571367.17321203/</string>
+			<key>fileURL</key>
+			<string>file:///Users/pA/Documents/Entwicklung/Unity/Navigation/</string>
+			<key>name</key>
+			<string>Navigation</string>
+		</dict>
+	</array>
+	<key>name</key>
+	<string>Repositories</string>
+</dict>
+</plist>

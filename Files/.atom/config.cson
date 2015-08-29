@@ -1,0 +1,30 @@
+"*":
+  "exception-reporting":
+    userId: "475f5495-335d-9488-6a29-5e45e29c45dc"
+  welcome:
+    showOnStartup: false
+  metrics:
+    userId: "f7035a0bf3d537563efe1e10eff4b988265d56b5"
+  editor:
+    fontFamily: "Hasklig"
+    fontSize: 12
+    invisibles: {}
+    scrollPastEnd: true
+  core:
+    themes: [
+      "unity-ui"
+      "one-light-syntax"
+    ]
+    followSymlinks: true
+  linter: {}
+  "linter-rust": {}
+  "autocomplete-plus": {}
+  "git-log": {}
+  minimap: {}
+  "autocomplete-clang":
+    preCompiledHeaders: {}
+    std: {}
+  "linter-clang": {}
+  "git-go": {}
+  "one-light-ui": {}
+  "you-complete-me": {}
