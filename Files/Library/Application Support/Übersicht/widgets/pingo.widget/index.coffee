@@ -1,7 +1,7 @@
 # Pingo by Brett Terpstra <http://brettterpstra.com>
 # Change the server as needed
 # Defaults to a 10-ping average run every 5 minutes
-command: "ping -c 10 199.19.85.141 | tail -n 2"
+command: "ping -c 10 tumbleweed.ilovepatrick.de | tail -n 2"
 refreshFrequency: 300000
 render: (output) -> """
 <div id="pingo">
@@ -80,9 +80,9 @@ update: (output, domEl) ->
     i++
 
 style: """
-left 350px
-top 680px
-width 180px
+left 280px
+top 10px
+width 200px
 height 45px
 border-radius 5px
 font-family: Avenir, Helvetica

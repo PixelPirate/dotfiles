@@ -78,8 +78,9 @@ set number              " show line numbers
 set scrolloff=3         " keep minimal number of lines above/below cursor
 set sidescroll=1        " scroll sideways 1 charasters at a time
 set sidescrolloff=3     " keep minimal number of lines at the sides of the cursor
-"set scrolljump=5        " lines to scroll when cursor leaves screen
-set showcmd             " show command line at bottom of screen
+"set scrolljump=5      " lines to scroll when cursor leaves screen
+"set showcmd            " show command line at bottom of screen
+                        " disabled because neovim-dot-app slows down with this
 set splitright          " open vertical split right of current window
 set visualbell          " use visual bell instead of beeping
 set wildmenu            " tap auto-complete for commands
@@ -100,7 +101,8 @@ set smartcase           " only if all characters are lower case
 set incsearch           " highlight matches while typing search
 set hlsearch            " keep previous search highlighted
 
-set lazyredraw          " Don't redraw while executing macros
+"set lazyredraw         " Don't redraw while executing macros
+                        " Disabled because neovim-dot-app slows down with this
 set linespace=4         " Lineheight in GUI mode
 set guioptions-=r       " Remove right-hand scroll bar
 set guioptions-=L       " Remove left-hand scroll bar

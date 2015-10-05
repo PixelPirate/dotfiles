@@ -12,8 +12,8 @@ command: """
   #  domain3_name:ping: cannot resolve domain4_name: Unknown host
   
   ###  LIST YOUR DOMAINS HERE
-  declare -a domains=( 8.8.8.8  ya.ru   bbc.co.uk )
-  declare -a aliases=( dns      yandex  bbc       )
+  declare -a domains=( 8.8.8.8  ya.ru   bbc.co.uk  tumbleweed.ilovepatrick.de)
+  declare -a aliases=( dns      yandex  bbc        tumbleweed)
   ###  AND DON'T FORGET SHORT ALIASES
 
   for i in "${!domains[@]}"; do
