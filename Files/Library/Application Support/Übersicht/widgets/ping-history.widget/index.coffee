@@ -10,10 +10,10 @@ command: """
   #  domain1_name:round-trip min/avg/max/stddev = 3.439/3.439/3.439/0.000 ms
   #  domain2_name:1 packets transmitted, 0 packets received, 100.0% packet loss
   #  domain3_name:ping: cannot resolve domain4_name: Unknown host
-  
+
   ###  LIST YOUR DOMAINS HERE
-  declare -a domains=( 8.8.8.8  ya.ru   bbc.co.uk  tumbleweed.ilovepatrick.de)
-  declare -a aliases=( dns      yandex  bbc        tumbleweed)
+  declare -a domains=( 8.8.8.8  www.apple.com   www.google.com  tumbleweed.ilovepatrick.de )
+  declare -a aliases=( dns      apple  google   tumbleweed    )
   ###  AND DON'T FORGET SHORT ALIASES
 
   for i in "${!domains[@]}"; do
@@ -115,20 +115,20 @@ _update_row: (name, el) ->
   else
     el.addClass 'down' unless el.hasClass 'down'
     el.find('.ping').html ''
-  
+
   # clearing all graph area, for it's being redrawn completely at each cycle
   @contexts[name].clearRect 0, 0, @settings.canvas_w, @settings.canvas_h
-  
+
   # for how many pixels graph area moves after drawing each separate bar
   step = @settings.bar_width + @settings.bar_gap
-  
+
   do @contexts[name].beginPath
   # iterate over each value in history and draw a bar
   for p in @history[name]
     # choose color for the bar
     for g in @bars_colors when g.min < p <= g.max
       @contexts[name].fillStyle = g.color
-    
+
     # ################################################ #
     if @settings.graph_direction is 'ltr'
       # LEFT-TO-RIGHT
@@ -159,7 +159,7 @@ _update_row: (name, el) ->
       # move all graph area for 'step' pixels left
       @contexts[name].transform 1, 0, 0, 1, -step, 0
     # ################################################ #
-  
+
   # move canvas back, or else every cycle bars will be appended, not redrawn
   if @settings.graph_direction is 'ltr'
     # LEFT-TO-RIGHT
@@ -177,39 +177,39 @@ style: """
   top 10px
   left 10px
   color white
-  
+
   box-sizing border-box
-      
+
   canvas
     background rgba(#000, 0.2)
-  
+
   table
     border-collapse collapse
     border-spacing 0
-    
+
     // emphasize unavailable domain with colored background
     tr.down > td
       background-color rgba(#F00, 0.7)
-    
+
     td
       vertical-align top
       padding 1px 3px 0
       font-family Helvetica Neue
       font-size 11px
       line-height 10px
-    
+
     td.name
       font-family Monaco
       padding-top 5px
       padding-right 8px
-    
+
     td.ping
       font-weight 200
       font-size 15px
       text-align right
       padding-top 3px
       min-width 50px
-    
+
     td.max
       font-size 8px
       line-height 8px

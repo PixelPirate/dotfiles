@@ -4,14 +4,8 @@ MILLIS_IN_MINUTE: 60 * 1000
 MILLIS_IN_SECOND: 1000
 
 countdowns: [
-	label: "Ocean Deadline"
-	time: "Nov 23, 2015"
-,
-    label: "Nancys Geburtstag"
-    time: "Oct 21, 2015"
-,
-    label: "Jahrestag"
-    time: "Jul 4, 2016"
+	label: "3. Jahrestag"
+	time: "Jun 22, 2016"
 ]
 
 command: ""
@@ -25,13 +19,13 @@ style: """
 
 	#container
 		background rgba(#000, .5)
-		margin 200px 10px 15px
+		margin 170px 10px 15px
 		padding 10px
 		border-radius 5px
 
 		color rgba(#fff, .9)
 		font-family Helvetica Neue
-	
+
 	span
 		font-size 14pt
 		font-weight bold
