@@ -53,6 +53,7 @@ execute pathogen#infect()
 filetype plugin indent on    " detect file type and load indents and plugins
 
 " Set cursor stlye, needs `export NVIM_TUI_ENABLE_CURSOR_SHAPE=1`
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 let &t_SI .= "\<Esc>[6 q"  " solid vertical line in insert mode
 let &t_EI .= "\<Esc>[2 q"  " solid block in normal mode
 " 1 or 0 -> blinking block
