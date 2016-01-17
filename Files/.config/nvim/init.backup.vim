@@ -1,6 +1,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.nvim/plugged')
 "Plug 'altercation/vim-colors-solarized'
 "Plug 'hukl/Smyck-Color-Scheme'
 Plug 'reedes/vim-colors-pencil'
@@ -24,7 +24,7 @@ Plug 'rking/ag.vim'
 
 "Plug 'Shougo/vimfiler.vim'
 "Plug 'Shougo/unite.vim' " Needed by vimfiler
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 
 Plug 'scrooloose/nerdcommenter'
 "Plug 'MattesGroeger/vim-bookmarks'
@@ -52,7 +52,7 @@ Plug 'sheerun/vim-polyglot' " Syntax support for many lanuages
 " Should load last
 Plug 'ryanoasis/vim-devicons' " Extra glyphs, load after VimFiler / NerdTree
 call plug#end()
-"execute pathogen#infect()
+execute pathogen#infect()
 filetype plugin indent on    " detect file type and load indents and plugins
 
 set guifont=Literation\ Mono\ Powerline\ Nerd\ Font\ Complete:h18

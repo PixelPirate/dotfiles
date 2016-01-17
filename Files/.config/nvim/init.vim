@@ -1,20 +1,21 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 "Plug 'altercation/vim-colors-solarized'
 "Plug 'hukl/Smyck-Color-Scheme'
 Plug 'reedes/vim-colors-pencil'
 
+Plug 'itchyny/lightline.vim'
 "Plug 'bling/vim-airline'
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --omnisharp-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang-completer --omnisharp-completer' }
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-"Plug 'kien/ctrlp.vim'
-"Plug 'JazzCore/ctrlp-cmatcher', { 'do': 'export CFLAGS=-Qunused-arguments; export CPPFLAGS=-Qunused-arguments; ./install.sh' }
-"Plug 'ivalkeen/vim-ctrlp-tjump'
-"Plug 'rking/ag.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'JazzCore/ctrlp-cmatcher', { 'do': 'export CFLAGS=-Qunused-arguments; export CPPFLAGS=-Qunused-arguments; ./install.sh' }
+Plug 'ivalkeen/vim-ctrlp-tjump'
+Plug 'rking/ag.vim'
 
 "Plug 'Tpope/vim-dispatch'
 "Plug 'radenling/vim-dispatch-neovim'
@@ -22,14 +23,15 @@ Plug 'junegunn/fzf.vim'
 "Plug 'szw/vim-tags' " Generates tags in fitting folders (.git). :TagsGenerate! for new project, then on every save. Uses vim-dispatch.
 
 "Plug 'Shougo/vimfiler.vim'
-"Plug 'scrooloose/nerdtree'
+"Plug 'Shougo/unite.vim' " Needed by vimfiler
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-"   Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 "Plug 'MattesGroeger/vim-bookmarks'
 "Plug 'skwp/greplace.vim'
 "Plug 'simnalamburt/vim-mundo' " Fork of Gundo, which seems abandoned
 
-"Plug 'sheerun/vim-polyglot' " Syntax support for many lanuages
+Plug 'sheerun/vim-polyglot' " Syntax support for many lanuages
 
 "Plug 'ryanss/vim-hackernews'
 
@@ -44,24 +46,35 @@ Plug 'junegunn/fzf.vim'
 
 " Junk
 "Plug 'tomtom/quickfixsigns_vim'
-"Plug 'Shougo/unite.vim'
 "Plug 'junegunn/vim-easy-align'
 "Plug 'airblade/vim-gitgutter'
-"Plug 'itchyny/lightline.vim'
+
+" Should load last
+Plug 'ryanoasis/vim-devicons' " Extra glyphs, load after VimFiler / NerdTree
 call plug#end()
-execute pathogen#infect()
+"execute pathogen#infect()
 filetype plugin indent on    " detect file type and load indents and plugins
+
+set guifont=Literation\ Mono\ Powerline\ Nerd\ Font\ Complete:h18
 
 " Set cursor stlye, needs `export NVIM_TUI_ENABLE_CURSOR_SHAPE=1`
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 let &t_SI .= "\<Esc>[6 q"  " solid vertical line in insert mode
 let &t_EI .= "\<Esc>[2 q"  " solid block in normal mode
+highlight Cursor guifg=blue guibg=blue
+highlight iCursor guifg=blue guibg=steelblue
+set guicursor=n-v-c:block-Cursor
+set guicursor+=i:ver100-iCursor
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:blinkwait10
 " 1 or 0 -> blinking block
 " 2 -> solid block
 " 3 -> blinking underscore
 " 4 -> solid underscore
 " 5 -> blinking vertical bar
 " 6 -> solid vertical bar
+
+scriptencoding utf-8
 
 set autoread            " auto reload buffer when file modified externally
 set clipboard=unnamed   " yank and paste using system clipboard
@@ -141,7 +154,11 @@ if &t_Co >= 256 || has("gui_running")
     else
         "let g:airline_theme = 'luna'
         colorscheme pencil
-        set background=light
+        let g:pencil_higher_contrast_ui = 0
+        let g:pencil_neutral_headings = 0
+        let g:pencil_neutral_code_bg = 0
+        let g:pencil_gutter_color = 0
+        let g:pencil_spell_undercurl = 1
         let g:pencil_terminal_italics = 1
         let g:airline_theme = 'pencil'
         highlight IncSearch cterm=underline
@@ -230,8 +247,8 @@ vnoremap > >gv
 vnoremap . :normal .<CR>
 
 " Use CtrlP to find definitions
-"nnoremap <C-]> :CtrlPtjump<CR>
-"vnoremap <C-]> :CtrlPtjumpVisual<CR>
+nnoremap <C-]> :CtrlPtjump<CR>
+vnoremap <C-]> :CtrlPtjumpVisual<CR>
 
 " Save with ctrl-s
 " Requires `stty -ixon` in .zshrc
@@ -244,11 +261,11 @@ map <C-w> :bd<CR>
 "nmap <C-w> :b#<bar>bd#<CR>
 
 " Buffer explorer
-"map <Leader>b :CtrlPBuffer<CR>
-map <Leader>b :Buffers<CR>
+map <Leader>b :CtrlPBuffer<CR>
+"map <Leader>b :Buffers<CR>
 
 " FZF CtrlP replacement
-map <C-p> :Files<CR>
+"map <C-p> :Files<CR>
 
 " Search and replace
 map <Leader>r :Replace<CR>
@@ -267,7 +284,7 @@ nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<C
 "  <Enter> to start EasyAlign, then `=` to align selection on `=`
 
 " NERD-Commenter customazations
-"map \ <Plug>NERDCommenterToggle
+map \ <Plug>NERDCommenterToggle
 
 " Prevent common mistake of pressing q: instead of :q
 map q: :q
@@ -303,23 +320,28 @@ let g:indent_guides_guide_size=1
 "let g:ycm_warning_symbol='•'
 "let NERDTreeIgnore = ['\.meta$']
 
+" FZF customazations
+" https://github.com/junegunn/fzf/wiki/Color-schemes
+" --color fg:252,bg:233,hl:67,fg+:252,bg+:235,hl+:81
+" --color info:144,prompt:161,spinner:135,pointer:135,marker:118
+
 " CtrlP fuzzy search customazations
 " Use Ag for better performance
 "if executable('ag')
-    "let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-                "\ --ignore .git
-                "\ --ignore .svn
-                "\ --ignore .hg
-                "\ --ignore .DS_Store
-                "\ --ignore "**/*.pyc"
-                "\ -g ""'
+"    let g:ctrlp_user_command = 'ag %s -i -l --nocolor --nogroup --hidden
+"                \ --ignore .git
+"                \ --ignore .svn
+"                \ --ignore .hg
+"                \ --ignore .DS_Store
+"                \ --ignore "**/*.pyc"
+"                \ -g ""'
 "endif
 " Use cmatcher for better performance
-"let g:ctrlp_match_func = {'match' : 'matcher#cmatch'}
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch'}
 " Immediatly jump to definition if only one is found
-"let g:ctrlp_tjump_only_silent = 1
+let g:ctrlp_tjump_only_silent = 1
 " Shorten filenames
-"let g:ctrlp_tjump_shortener = ['(.*/)', '.../']
+let g:ctrlp_tjump_shortener = ['(.*/)', '.../']
 
  "AirLine customazations
 "if !exists("g:airline_symbols")
@@ -334,6 +356,42 @@ let g:indent_guides_guide_size=1
 "let g:airline_symbols.whitespace = 'Ξ'
 "let g:airline_section_y = airline#section#create(['%p', '%%'])
 "let g:airline_section_z = airline#section#create_right(['%l', '%c'])
+
+ "DevIcons customazations
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+
+ "Lightline customazations
+    "\ 'separator': { 'left': '', 'right': '' },
+    "\ 'subseparator': { 'left': '', 'right': '' },
+let g:lightline = {
+    \ 'colorscheme': 'PaperColor',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+    \ },
+    \ 'component': {
+    \   'readonly': '%{&readonly?"⭤":""}',
+    \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+    \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+    \ },
+    \ 'component_visible_condition': {
+    \   'readonly': '(&filetype!="help"&& &readonly)',
+    \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+    \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+    \ },
+    \ 'component_function': {
+    \   'filetype': 'DevIconsFiletype',
+    \   'fileformat': 'DevIconsFileformat',
+    \ }
+\ }
+function! DevIconsFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! DevIconsFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
 
 " Store persistent undo files in a seperate folder
 "if has("persistent_undo")
