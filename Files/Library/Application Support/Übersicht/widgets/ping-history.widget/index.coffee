@@ -176,7 +176,7 @@ style: """
   // SET DESIRED POSITION AND FONT COLOR
   top 10px
   left 10px
-  color white
+  color gray //white
 
   box-sizing border-box
 
@@ -194,12 +194,12 @@ style: """
     td
       vertical-align top
       padding 1px 3px 0
-      font-family Helvetica Neue
+      font-family -apple-system
       font-size 11px
       line-height 10px
 
     td.name
-      font-family Monaco
+      /*font-family Monaco*/
       padding-top 5px
       padding-right 8px
 

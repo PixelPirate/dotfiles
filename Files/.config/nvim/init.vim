@@ -4,36 +4,43 @@ call plug#begin('~/.config/nvim/plugged')
 "Plug 'altercation/vim-colors-solarized'
 "Plug 'hukl/Smyck-Color-Scheme'
 Plug 'reedes/vim-colors-pencil'
+"Plug 'reedes/vim-wheel'
+"Plug 'gilsondev/searchtasks.vim'
+Plug 'TaskList.vim'
 
 Plug 'itchyny/lightline.vim'
 "Plug 'bling/vim-airline'
 
-Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang-completer --omnisharp-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang-completer --omnisharp-completer --racer-completer' }
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'JazzCore/ctrlp-cmatcher', { 'do': 'export CFLAGS=-Qunused-arguments; export CPPFLAGS=-Qunused-arguments; ./install.sh' }
-Plug 'ivalkeen/vim-ctrlp-tjump'
+"Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'JazzCore/ctrlp-cmatcher', { 'do': 'export CFLAGS=-Qunused-arguments; export CPPFLAGS=-Qunused-arguments; ./install.sh' }
+"Plug 'ivalkeen/vim-ctrlp-tjump'
 Plug 'rking/ag.vim'
 
 "Plug 'Tpope/vim-dispatch'
 "Plug 'radenling/vim-dispatch-neovim'
-"Plug 'majutsushi/tagbar'
-"Plug 'szw/vim-tags' " Generates tags in fitting folders (.git). :TagsGenerate! for new project, then on every save. Uses vim-dispatch.
+Plug 'majutsushi/tagbar'
+Plug 'szw/vim-tags' " Generates tags in fitting folders (.git). :TagsGenerate! for new project, then on every save. Uses vim-dispatch.
 
 "Plug 'Shougo/vimfiler.vim'
 "Plug 'Shougo/unite.vim' " Needed by vimfiler
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 Plug 'scrooloose/nerdcommenter'
-"Plug 'MattesGroeger/vim-bookmarks'
-"Plug 'skwp/greplace.vim'
-"Plug 'simnalamburt/vim-mundo' " Fork of Gundo, which seems abandoned
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'skwp/greplace.vim'
+Plug 'simnalamburt/vim-mundo' " Fork of Gundo, which seems abandoned
 
 Plug 'sheerun/vim-polyglot' " Syntax support for many lanuages
 
-"Plug 'ryanss/vim-hackernews'
+"Plug 'inside/vim-search-pulse' " Pulse search hits
+
+Plug 'ryanss/vim-hackernews'
+
+Plug 'mhinz/vim-startify'
 
 " Disabled because not currently nessessary
 "Plug 'tpope/vim-fugitive'
@@ -55,7 +62,7 @@ call plug#end()
 "execute pathogen#infect()
 filetype plugin indent on    " detect file type and load indents and plugins
 
-set guifont=Literation\ Mono\ Powerline\ Nerd\ Font\ Complete:h18
+"set guifont=Literation\ Mono\ Powerline\ Nerd\ Font\ Complete:h18
 
 " Set cursor stlye, needs `export NVIM_TUI_ENABLE_CURSOR_SHAPE=1`
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -180,13 +187,14 @@ noremap <c-n> :nohlsearch<cr>
 "nnoremap <Leader>gp :Gpush<CR>
 
 " Undotree shortcuts
-"nnoremap <Leader>u :GundoToggle<CR>
+nnoremap <Leader>u :MundoToggle<CR>
 
 " Toggle for source code map
-"map <Leader>m :TagbarToggle<CR>
+map <Leader>m :TagbarToggle<CR>
 
 " Toggle for file browser
 "map <Leader>f :VimFiler<CR>
+map <Leader>f :NERDTreeToggle<CR>
 
 " Copy & cut on (nearly) normal key combos
 map <C-c> "+y<CR>
@@ -196,7 +204,9 @@ map <C-x> "+d<CR>
 nnoremap <Leader>d "_dd
 vnoremap <Leader>d "_d
 
+" Keyboard shortcuts for finding in current directory
 nnoremap F :Find<CR>
+nnoremap <C-f> :Find<CR>
 
 " Page scrolling
 nnoremap <S-Up> <Up><Up><Up><Up><Up><Up><Up><Up><Up><Up>
@@ -212,11 +222,11 @@ inoremap <S-Up> <C-o><C-u>
 map .<Right> 20zl
 map .<Left> 20zh
 
-" Jump through paragraphs (Not working... thanks iTerm)
-nnoremap <M-Up> {
-nnoremap <M-Down> }
-inoremap <M-Up> {
-inoremap <M-Down> }
+" Jump through paragraphs (Only works in GUI)
+nnoremap <D-Up> {
+nnoremap <D-Down> }
+inoremap <D-Up> {
+inoremap <D-Down> }
 
 " Move between vertial splits easier
 noremap <Leader><Left> <C-w>h
@@ -242,13 +252,25 @@ inoremap <D-Left> <Home>
 inoremap <D-Right> <End>
 
 " Visual shifting (does not exit Visual mode)
-vnoremap < <gv
-vnoremap > >gv
-vnoremap . :normal .<CR>
+"vnoremap < <gv
+"vnoremap > >gv
+"vnoremap . :normal .<CR>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+nmap <Tab> a<C-t><Esc>
+nmap <S-Tab> a<C-d><Esc>
 
-" Use CtrlP to find definitions
-nnoremap <C-]> :CtrlPtjump<CR>
-vnoremap <C-]> :CtrlPtjumpVisual<CR>
+" Find definitions
+command GoTo YcmCompleter GoTo
+command GoToDeclaration YcmCompleter GoToDeclaration
+command GoToDefinition YcmCompleter GoToDefinition
+command GoToImplementation YcmCompleter GoToImplementation
+"nnoremap <C-]> :CtrlPtjump<CR>
+"vnoremap <C-]> :CtrlPtjumpVisual<CR>
+" Find definitions for GUI
+nnoremap <C-ü> :YcmCompleter GoTo<CR>
+" Find definitions for Terminal
+nnoremap <C-]> :YcmCompleter GoTo<CR>
 
 " Save with ctrl-s
 " Requires `stty -ixon` in .zshrc
@@ -259,20 +281,21 @@ inoremap <C-s> <C-o>:w<CR>
 " Close current buffer
 map <C-w> :bd<CR>
 "nmap <C-w> :b#<bar>bd#<CR>
+"nnoremap <C-w> :bp\|bd #<CR>
 
 " Buffer explorer
-map <Leader>b :CtrlPBuffer<CR>
-"map <Leader>b :Buffers<CR>
+"map <Leader>b :CtrlPBuffer<CR>
+map <Leader>b :Buffers<CR>
 
 " FZF CtrlP replacement
-"map <C-p> :Files<CR>
+map <C-p> :Files<CR>
 
 " Search and replace
 map <Leader>r :Replace<CR>
 
 " Search and replace in all files
 "map <Leader>R :Gsearch<CR>
-"command ReplaceInProject Gsearch
+command ReplaceInProject Gsearch
 
 " Map <Leader>ff to display all lines with keyword under cursor and ask which one to jump to
 nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
@@ -304,10 +327,16 @@ highlight VertSplit ctermbg=NONE ctermfg=grey cterm=NONE guibg=background gui=NO
 " Full height vertical seperator char
 set fillchars=vert:│
 
+" Vim-Wheel customazations
+"let g:wheel#map#mouse = 1
+
 " Indent guides customazations
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 " Toggle indent guides with <Leader>ig
+
+" Startify customazations
+let g:startify_custom_header = []
 
 " VimFiller customazations
 "let g:vimfiler_tree_opened_icon='▼'
@@ -319,11 +348,22 @@ let g:indent_guides_guide_size=1
 "let g:ycm_error_symbol='💩'
 "let g:ycm_warning_symbol='•'
 "let NERDTreeIgnore = ['\.meta$']
+"let g:ycm_rust_src_path = '~/.multirust/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src'
 
 " FZF customazations
 " https://github.com/junegunn/fzf/wiki/Color-schemes
 " --color fg:252,bg:233,hl:67,fg+:252,bg+:235,hl+:81
 " --color info:144,prompt:161,spinner:135,pointer:135,marker:118
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
 
 " CtrlP fuzzy search customazations
 " Use Ag for better performance
@@ -337,11 +377,11 @@ let g:indent_guides_guide_size=1
 "                \ -g ""'
 "endif
 " Use cmatcher for better performance
-let g:ctrlp_match_func = {'match' : 'matcher#cmatch'}
+"let g:ctrlp_match_func = {'match' : 'matcher#cmatch'}
 " Immediatly jump to definition if only one is found
-let g:ctrlp_tjump_only_silent = 1
+"let g:ctrlp_tjump_only_silent = 1
 " Shorten filenames
-let g:ctrlp_tjump_shortener = ['(.*/)', '.../']
+"let g:ctrlp_tjump_shortener = ['(.*/)', '.../']
 
  "AirLine customazations
 "if !exists("g:airline_symbols")
@@ -528,4 +568,4 @@ fun! Start()
 endfun
 
 " Run after "doing all the startup stuff"
-autocmd VimEnter * call Start()
+"autocmd VimEnter * call Start()

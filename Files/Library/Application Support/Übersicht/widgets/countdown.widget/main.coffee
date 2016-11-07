@@ -4,8 +4,14 @@ MILLIS_IN_MINUTE: 60 * 1000
 MILLIS_IN_SECOND: 1000
 
 countdowns: [
-	label: "3. Jahrestag"
-	time: "Jun 22, 2016"
+	{
+		label: "4. Jahrestag"
+		time: "Jun 22, 2017"
+	},
+	{
+		label: "Check24 Arbeitsbegin"
+		time: "Nov 1, 2016"
+	}
 ]
 
 command: ""
@@ -19,12 +25,15 @@ style: """
 
 	#container
 		background rgba(#000, .5)
-		margin 170px 10px 15px
+		/* -webkit-backdrop-filter: blur(20px) brightness(70%) contrast(120%) saturate(140%); */
+		-webkit-backdrop-filter: blur(20px) brightness(170%) contrast(120%) saturate(140%)
+		margin 675px 10px 15px
+
 		padding 10px
 		border-radius 5px
 
 		color rgba(#fff, .9)
-		font-family Helvetica Neue
+		font-family -apple-system, "Helvetica Neue"
 
 	span
 		font-size 14pt
